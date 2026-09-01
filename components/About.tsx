@@ -4,11 +4,12 @@ import SectionHeading from "@/components/SectionHeading";
 import { ABOUT, EDUCATION, EXPERIENCE, SITE } from "@/lib/content";
 
 /*
-  Drop a square photo at public/portrait.jpg (at least 640x640, shot from the
-  chest up, plain background) and change this to "/portrait.jpg". Keep it small
-  and down here rather than in the hero -- the work should introduce you first.
+  Kept small and down here rather than in the hero: the work should introduce you
+  first. The source file is 399x397, which covers the 132px slot on a 2x display
+  with room to spare -- if this ever gets rendered larger, replace it with a
+  bigger original rather than scaling this one up.
 */
-const PORTRAIT_SRC = "/portrait-placeholder.svg";
+const PORTRAIT_SRC = "/portrait.jpg";
 
 export default function About() {
   return (

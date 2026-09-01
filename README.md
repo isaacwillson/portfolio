@@ -25,12 +25,13 @@ npx eslint .    # lint
 | `components/SeasonGrid.tsx` | The 29 x 10 grid of observed hours, also inside that project. |
 | `components/SectionHeading.tsx` | One heading treatment shared by every section. |
 | `public/Isaac-Willson-Resume.pdf` | Served by the two download links. Replace this file to update the resume. |
+| `public/portrait.jpg` | The About photo. Referenced by `PORTRAIT_SRC` in `components/About.tsx`. |
 
 ## Before this goes live
 
-- [ ] **Add a portrait.** Drop a square photo at `public/portrait.jpg` (640x640 or
-      larger, chest up, plain background), then change `PORTRAIT_SRC` in
-      `components/About.tsx` to `"/portrait.jpg"`. It currently shows a placeholder.
+- [x] ~~Add a portrait.~~ `public/portrait.jpg` is in place (399x397). If the photo
+      ever needs to render larger than the 132px slot in `components/About.tsx`,
+      replace it with a bigger original rather than scaling this one.
 - [ ] **Keep the resume in sync.** The site quotes numbers from it (300+ visitors,
       23% below baseline, 6 endpoints). When you update `public/Isaac-Willson-Resume.pdf`,
       check `PROJECTS` and `PILLARS` in `lib/content.ts` still match it.
