@@ -1,33 +1,36 @@
 import type { Metadata } from "next";
-import { Archivo, Inter, Geist_Mono } from "next/font/google";
+import { Fraunces, Alegreya_Sans, IBM_Plex_Mono } from "next/font/google";
+import SmoothScroll from "@/components/SmoothScroll";
 import { SITE } from "@/lib/content";
 import "./globals.css";
 
-const archivo = Archivo({
-  variable: "--font-archivo",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  axes: ["SOFT", "WONK", "opsz"],
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const alegreyaSans = Alegreya_Sans({
+  variable: "--font-alegreya-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
   subsets: ["latin"],
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: `${SITE.name} — ${SITE.role}`,
   description:
-    "I transcribed a summer of paper pool sign-in sheets into 250 observed hours, trained a forecaster on them, and shipped it. Try the model on the homepage.",
+    "I transcribed a summer of paper pool sign-in sheets into 250 observed hours, trained a forecaster on them, and shipped it.",
   openGraph: {
     title: `${SITE.name} — ${SITE.role}`,
     description:
-      "A summer of paper sign-in sheets, turned into a deployed model you can play with.",
+      "A summer of paper sign-in sheets, turned into a deployed model you can try.",
     url: SITE.url,
     siteName: SITE.name,
     type: "website",
@@ -39,13 +42,22 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${archivo.variable} ${inter.variable} ${geistMono.variable} antialiased`}
-      >
+    /*
+      The font variables go on <html>, not <body>. Tailwind declares its theme
+      tokens on :root, and a custom property resolves its var() references
+      against the element it is declared on -- so --font-display referencing
+      --font-fraunces only works if both live at the same level. On <body> the
+      whole chain silently computes to invalid and every face falls back.
+    */
+    <html
+      lang="en"
+      className={`${fraunces.variable} ${alegreyaSans.variable} ${plexMono.variable}`}
+    >
+      <body>
+        <SmoothScroll />
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-panel focus:px-4 focus:py-2 focus:text-sm"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:border focus:border-ink focus:bg-paper focus:px-4 focus:py-2"
         >
           Skip to content
         </a>

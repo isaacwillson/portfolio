@@ -9,16 +9,16 @@ const NAV = [
 
 export default function SiteHeader() {
   return (
-    <header className="fixed inset-x-0 top-0 z-40 border-b border-[var(--line)] bg-ground/70 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3.5 sm:px-8">
+    <header className="fixed inset-x-0 top-0 z-40 border-b border-rule bg-paper/92 backdrop-blur-[2px]">
+      <div className="mx-auto flex max-w-[1180px] items-baseline justify-between gap-6 px-6 py-4 sm:px-10">
         <a
           href="#top"
-          className="font-display text-sm font-bold tracking-[-0.025em] transition-colors hover:text-ember"
+          className="font-display text-[1.05rem] font-medium tracking-[-0.02em] transition-colors hover:text-rust"
         >
           {SITE.name}
         </a>
 
-        <nav aria-label="Sections" className="hidden gap-7 md:flex">
+        <nav aria-label="Sections" className="hidden gap-8 md:flex">
           {NAV.map((item) => (
             <a
               key={item.href}
@@ -30,13 +30,8 @@ export default function SiteHeader() {
           ))}
         </nav>
 
-        <span className="label flex items-center gap-2">
-          <span
-            className="block h-1.5 w-1.5 rounded-full bg-ember shadow-[0_0_10px_rgba(255,216,77,0.9)]"
-            aria-hidden="true"
-          />
-          {SITE.availability}
-        </span>
+        {/* plain ruled label, no dot, no glow */}
+        <p className="label border border-rule px-2.5 py-1">{SITE.availability}</p>
       </div>
     </header>
   );
