@@ -245,29 +245,67 @@ body {
   list-style: none;
   cursor: pointer;
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
-  padding: 1rem 0;
+  gap: 2rem;
+  padding: 1.4rem 0;
   border-top: 1px solid var(--color-ink);
-  transition: color 0.25s ease;
 }
 .disclosure > summary::-webkit-details-marker {
   display: none;
-}
-.disclosure > summary:hover {
-  color: var(--color-rust);
 }
 .disclosure > summary:focus-visible {
   outline: 2px solid var(--color-rust);
   outline-offset: 4px;
 }
 
-.disclosure .disclosure-sign::after {
+.disclosure-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.32rem;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-color: var(--color-rule);
+  text-underline-offset: 6px;
+  text-decoration-thickness: 1px;
+  transition: color 0.22s ease, text-decoration-color 0.22s ease;
+}
+.disclosure > summary:hover .disclosure-title {
+  color: var(--color-rust);
+  text-decoration-color: var(--color-rust);
+}
+
+/* the verb, so the control says what it does rather than only hinting */
+.disclosure-verb::after {
+  content: "Show";
+}
+.disclosure[open] .disclosure-verb::after {
+  content: "Hide";
+}
+
+/* a ruled square with a sign in it: unmistakably a control, still print-like */
+.disclosure-sign {
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 1px solid var(--color-ink);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--color-ink);
+  transition: background-color 0.22s ease, color 0.22s ease;
+}
+.disclosure-sign::after {
   content: "+";
 }
 .disclosure[open] .disclosure-sign::after {
   content: "–";
+}
+.disclosure > summary:hover .disclosure-sign {
+  background: var(--color-ink);
+  color: var(--color-paper);
 }
 
 @keyframes disclosure-in {

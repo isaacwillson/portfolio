@@ -61,8 +61,16 @@ function FeaturedProject({ project }: { project: Project }) {
       */}
       <details className="disclosure stage mt-20">
         <summary>
-          <span className="label">The data behind it</span>
-          <span className="label disclosure-sign" aria-hidden="true" />
+          <span>
+            <span className="disclosure-title">The data behind it</span>
+            <span className="mt-2 block font-mono text-[0.72rem] tracking-[0.06em] text-ink-muted">
+              29 days · 250 recorded hours · one square per hour
+            </span>
+          </span>
+          <span className="flex items-center gap-3">
+            <span className="disclosure-verb label" />
+            <span className="disclosure-sign" aria-hidden="true" />
+          </span>
         </summary>
 
         <div className="disclosure-body grid gap-x-10 gap-y-8 pt-10 lg:grid-cols-12">
