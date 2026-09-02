@@ -233,6 +233,27 @@ body {
   outline-offset: 2px;
 }
 
+/* ---------- pointer-aware copy ---------- */
+
+/*
+  "Trace" means nothing on a touchscreen and "drag" reads oddly with a mouse,
+  so the hint matches the input the reader actually has.
+*/
+.pointer-hover {
+  display: none;
+}
+.pointer-tap {
+  display: inline;
+}
+@media (hover: hover) and (pointer: fine) {
+  .pointer-hover {
+    display: inline;
+  }
+  .pointer-tap {
+    display: none;
+  }
+}
+
 /* ---------- disclosure ---------- */
 
 /*
