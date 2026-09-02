@@ -1,9 +1,9 @@
 import HeroPlot from "@/components/HeroPlot";
-import { EDUCATION, SITE } from "@/lib/content";
+import { SITE } from "@/lib/content";
 
 export default function Hero() {
   return (
-    <section id="top" className="px-6 pb-16 pt-28 sm:px-10 sm:pb-24 sm:pt-36">
+    <section id="top" className="px-6 pb-20 pt-28 sm:px-10 sm:pb-28 sm:pt-36">
       <div className="mx-auto max-w-[1180px]">
         {/* asymmetric: the headline holds the left seven columns, the figure the right five */}
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
@@ -37,24 +37,7 @@ export default function Hero() {
             <HeroPlot />
           </div>
         </div>
-
-        {/* the figure's caption doubles as the hero's footer rule */}
-        <div className="rule-section mt-16 grid gap-6 pt-5 sm:grid-cols-2 lg:grid-cols-4">
-          <Meta label="Available" value={SITE.availability} />
-          <Meta label="Studying" value="CS + Data Science, Rutgers" />
-          <Meta label="Graduating" value={EDUCATION.dates.replace("Expected ", "")} />
-          <Meta label="Figure 1" value="250 hours, transcribed by hand" />
-        </div>
       </div>
     </section>
-  );
-}
-
-function Meta({ label, value }: { label: string; value: string }) {
-  return (
-    <div>
-      <p className="label">{label}</p>
-      <p className="mt-1.5 text-[0.95rem] text-ink">{value}</p>
-    </div>
   );
 }
