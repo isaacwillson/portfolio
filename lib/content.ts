@@ -7,8 +7,7 @@ export const SITE = {
   role: "Software engineer",
   location: "New Jersey",
   city: "Dover, NJ",
-  // TODO: point this at your real domain once it's registered
-  url: "https://isaacwillson.dev",
+  url: "https://isaacwillson.vercel.app/",
   email: "isaacwillson.work@gmail.com",
   github: "https://github.com/isaacwillson",
   linkedin: "https://www.linkedin.com/in/isaacwillson/",
