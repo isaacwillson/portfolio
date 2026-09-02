@@ -172,15 +172,3 @@ Two ordering rules that matter for robustness:
 - The anchor handler does not `preventDefault` when Lenis is absent, so a click
   falls back to the browser's own jump instead of going nowhere.
 
-## Before this goes live
-
-- [ ] **Set the real domain.** `SITE.url` in `lib/content.ts` is a placeholder and
-      it feeds the Open Graph tags, so shared links will not preview correctly
-      until it is real.
-- [ ] **Add an OG image** at `app/opengraph-image.png` (1200×630).
-- [ ] **Keep the résumé in sync.** The site quotes numbers from it — 300+ visitors,
-      23% below baseline, 6 endpoints. When you replace the PDF, check `PROJECTS`
-      and `PILLARS` in `lib/content.ts` still match.
-
-The phone number on the résumé is deliberately not on the site. A public page with
-a phone number collects spam; the PDF is the place for it.
