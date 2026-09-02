@@ -162,6 +162,77 @@ body {
   color: var(--color-paper);
 }
 
+/* ---------- season grid ---------- */
+
+.season-cell {
+  opacity: 0;
+  transition: opacity 0.32s ease-out;
+}
+.season-grid[data-shown="true"] .season-cell {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .season-cell {
+    opacity: 1;
+  }
+}
+
+/* ---------- temperature slider ---------- */
+
+/*
+  Drawn like a printed scale: a hairline rule with a small solid ink marker.
+  No track fill, no shadow, no glow.
+*/
+.temp-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 24px;
+  margin: 0;
+  background: transparent;
+  position: relative;
+  z-index: 1;
+}
+.temp-range::-webkit-slider-runnable-track {
+  height: 2px;
+  background: var(--color-rule);
+}
+.temp-range::-moz-range-track {
+  height: 2px;
+  background: var(--color-rule);
+}
+.temp-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 3px;
+  height: 20px;
+  margin-top: -9px;
+  border: none;
+  border-radius: 0;
+  background: var(--color-ink);
+  cursor: ew-resize;
+}
+.temp-range::-moz-range-thumb {
+  width: 3px;
+  height: 20px;
+  border: none;
+  border-radius: 0;
+  background: var(--color-ink);
+  cursor: ew-resize;
+}
+.temp-range:focus {
+  outline: none;
+}
+.temp-range:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--color-rust);
+  outline-offset: 2px;
+}
+.temp-range:focus-visible::-moz-range-thumb {
+  outline: 2px solid var(--color-rust);
+  outline-offset: 2px;
+}
+
 /* ---------- staged reveal ---------- */
 
 /*

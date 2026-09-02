@@ -1,23 +1,22 @@
 /**
- * The one color decision on this site: arrivals are encoded as heat.
+ * Arrivals encoded as ink density, the way a printed figure would do it.
  *
- * Deep violet for a dead hour, bright yellow for a packed one, through magenta
- * and orange in between. It is an inferno-style ramp, the same family of
- * colormap you would reach for on any real heat map, which is why it is allowed
- * to be this loud. It is carrying information, not decorating.
+ * One hue, light to dark. A single-hue sequential ramp is the honest choice for
+ * a quantity that only goes up, and it keeps the whole site on one accent
+ * instead of smuggling a second palette in through the charts.
  */
 
 const STOPS = [
-  "#1A0B3D", // deep violet, a quiet hour
-  "#5B21A8", // purple
-  "#C0267E", // magenta
-  "#F4562F", // vivid orange-red
-  "#FF9A1F", // orange
-  "#FFD84D", // bright yellow, a packed hour
+  "#E9D3BF", // barely inked
+  "#DCB394",
+  "#CB8B60",
+  "#B96A3B",
+  "#A54A24", // the accent itself
+  "#7E3419", // deepest
 ];
 
-/** An hour that was open and logged, but nobody came. Deliberately near-ground. */
-export const ZERO_COLOR = "#181231";
+/** Open, logged, and nobody came. Present on the page, but only just. */
+export const ZERO_COLOR = "#EDE6DB";
 
 function hex(c: string): [number, number, number] {
   return [
@@ -29,41 +28,32 @@ function hex(c: string): [number, number, number] {
 
 const RGB = STOPS.map(hex);
 
-/** t in [0,1] along the ramp. */
-export function thermalRgb(t: number): [number, number, number] {
+export function ramp(t: number): string {
   const clamped = Math.max(0, Math.min(1, t));
   const f = clamped * (RGB.length - 1);
   const i = Math.min(RGB.length - 2, Math.floor(f));
   const k = f - i;
   const a = RGB[i];
   const b = RGB[i + 1];
-  return [
-    Math.round(a[0] + (b[0] - a[0]) * k),
-    Math.round(a[1] + (b[1] - a[1]) * k),
-    Math.round(a[2] + (b[2] - a[2]) * k),
-  ];
-}
-
-export function thermal(t: number): string {
-  const [r, g, b] = thermalRgb(t);
-  return "rgb(" + r + ", " + g + ", " + b + ")";
+  return `rgb(${Math.round(a[0] + (b[0] - a[0]) * k)}, ${Math.round(
+    a[1] + (b[1] - a[1]) * k
+  )}, ${Math.round(a[2] + (b[2] - a[2]) * k)})`;
 }
 
 /**
- * Arrivals are compressed with a mild power curve. Most hours sit in the single
- * digits, and a linear scale would leave the whole season looking violet.
+ * Most hours sit in the single digits, so a linear scale would leave the whole
+ * season looking blank. A mild power curve spends more of the ramp where the
+ * data actually lives.
  */
 export function arrivalRamp(value: number, max: number): number {
   return Math.pow(Math.min(1, value / max), 0.6);
 }
 
-/** Color for an arrival count. A recorded zero gets its own near-ground tone. */
 export function arrivalColor(value: number, max: number): string {
   if (value === 0) return ZERO_COLOR;
-  return thermal(arrivalRamp(value, max));
+  return ramp(arrivalRamp(value, max));
 }
 
-/** Evenly spaced swatches, for legends. */
-export function rampSwatches(n = 7): string[] {
-  return Array.from({ length: n }, (_, i) => thermal(i / (n - 1)));
+export function rampSwatches(n = 6): string[] {
+  return Array.from({ length: n }, (_, i) => ramp(i / (n - 1)));
 }

@@ -1,18 +1,22 @@
 import SiteHeader from "@/components/SiteHeader";
 import Hero from "@/components/Hero";
+import Approach from "@/components/Approach";
+import Work from "@/components/Work";
+import Toolkit from "@/components/Toolkit";
+import About, { AboutRecord } from "@/components/About";
 import SiteFooter from "@/components/SiteFooter";
 
-/*
-  Redesign in progress. Approach, Work, Toolkit and About still carry the old
-  dark identity, so they are held back rather than shown half-converted. They
-  come back section by section.
-*/
 export default function Home() {
   return (
     <>
       <SiteHeader />
       <main id="main">
         <Hero />
+        <Approach />
+        <Work />
+        <Toolkit />
+        <About />
+        <AboutRecord />
       </main>
       <SiteFooter />
     </>
