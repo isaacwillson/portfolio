@@ -54,20 +54,32 @@ function FeaturedProject({ project }: { project: Project }) {
         </div>
       </div>
 
-      <div className="mt-20 grid gap-x-10 gap-y-8 lg:grid-cols-12">
-        <p className="label stage lg:col-span-3">The data behind it</p>
-        <div className="stage lg:col-span-9">
-          <p className="mb-10 max-w-[68ch] text-[1.05rem] leading-[1.62] text-ink-muted">
-            The pool recorded arrivals on paper and nothing else — no database, no
-            counter, no export. Inked squares were recorded, the palest are hours the
-            pool was open and{" "}
-            <strong className="font-medium text-ink">nobody came</strong>, and empty
-            outlines were never logged. Keeping those zeros is the whole point: they
-            are where the bad-weather signal lives.
-          </p>
-          <SeasonGrid />
+      {/*
+        The dataset is the best part of this project but it is also the longest,
+        and it sits between the reader and the next piece of work. Folded away by
+        default; anyone who wants it opens it.
+      */}
+      <details className="disclosure stage mt-20">
+        <summary>
+          <span className="label">The data behind it</span>
+          <span className="label disclosure-sign" aria-hidden="true" />
+        </summary>
+
+        <div className="disclosure-body grid gap-x-10 gap-y-8 pt-10 lg:grid-cols-12">
+          <p className="label lg:col-span-3">Fig. 2</p>
+          <div className="lg:col-span-9">
+            <p className="mb-10 max-w-[68ch] text-[1.05rem] leading-[1.62] text-ink-muted">
+              The pool recorded arrivals on paper and nothing else — no database, no
+              counter, no export. Inked squares were recorded, the palest are hours
+              the pool was open and{" "}
+              <strong className="font-medium text-ink">nobody came</strong>, and empty
+              outlines were never logged. Keeping those zeros is the whole point: they
+              are where the bad-weather signal lives.
+            </p>
+            <SeasonGrid />
+          </div>
         </div>
-      </div>
+      </details>
 
       <dl className="stage mt-16 grid grid-cols-2 gap-x-10 gap-y-8 border-t border-ink pt-6 sm:grid-cols-4">
         <Stat value={SEASON_STATS.days.toString()} label="Days observed" />

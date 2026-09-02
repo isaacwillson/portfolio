@@ -233,6 +233,63 @@ body {
   outline-offset: 2px;
 }
 
+/* ---------- disclosure ---------- */
+
+/*
+  Native <details>, so it opens with no JS and needs no ARIA of its own.
+  Only the opening is animated: a closed <details> hides its content outright,
+  so there is no closing transition to run and pretending otherwise just adds
+  a stutter.
+*/
+.disclosure > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--color-ink);
+  transition: color 0.25s ease;
+}
+.disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+.disclosure > summary:hover {
+  color: var(--color-rust);
+}
+.disclosure > summary:focus-visible {
+  outline: 2px solid var(--color-rust);
+  outline-offset: 4px;
+}
+
+.disclosure .disclosure-sign::after {
+  content: "+";
+}
+.disclosure[open] .disclosure-sign::after {
+  content: "–";
+}
+
+@keyframes disclosure-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.disclosure[open] > .disclosure-body {
+  animation: disclosure-in 0.45s cubic-bezier(0.22, 0.9, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .disclosure[open] > .disclosure-body {
+    animation: none;
+  }
+}
+
 /* ---------- staged reveal ---------- */
 
 /*
