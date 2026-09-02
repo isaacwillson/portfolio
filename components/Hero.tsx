@@ -19,7 +19,7 @@ export default function Hero() {
 
             <p className="mt-9 max-w-[38ch] text-[1.1rem] leading-[1.62] text-ink-muted">
               I&rsquo;m a {SITE.role.toLowerCase()} studying computer science and data
-              science at Rutgers. I build things that need real data — and when the
+              science at Rutgers. I build full stack projects with real users. And if the
               data doesn&rsquo;t exist yet, I go and collect it.
             </p>
 
