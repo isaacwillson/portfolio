@@ -5,8 +5,10 @@ export default function Hero() {
   return (
     <section id="top" className="px-6 pb-20 pt-28 sm:px-10 sm:pb-28 sm:pt-36">
       <div className="mx-auto max-w-[1180px]">
-        {/* asymmetric: the headline holds the left seven columns, the figure the right five */}
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
+        {/* asymmetric: the headline holds the left seven columns, the figure the
+            right five, centred against it so the plot doesn't strand whitespace
+            below itself when the text column runs taller */}
+        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-7 lg:pt-6">
             <p className="label mb-8">
               {SITE.name} — {SITE.city}
