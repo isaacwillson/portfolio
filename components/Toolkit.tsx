@@ -14,8 +14,7 @@ export default function Toolkit() {
         <SectionHeading
           index="03"
           eyebrow="Toolkit"
-          title="What I reach for."
-          lede="No percentages and no star ratings. If you want to know how well I use any of it, the work above is the evidence."
+          title="Toolkit."
         />
 
         <dl className="mt-16">
