@@ -1,116 +1,65 @@
-# isaacwillson.dev
+# Isaac Willson — personal site
 
-Personal site for Isaac Willson. Next.js 16 (App Router), React 19, TypeScript,
-Tailwind CSS v4, GSAP and Lenis.
+My portfolio. **Live at [isaacwillson.vercel.app](https://isaacwillson.vercel.app).**
 
-The design is warm humanist minimal: a paper ground, warm ink, one rust accent,
-and a hero built from a real dataset rather than decoration.
+Built with Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, GSAP
+and Lenis.
 
-Link: 
+The direction is warm humanist minimal — a paper ground, warm ink, one rust
+accent — and the hero is a real dataset rather than a stock illustration. I
+wanted the first thing you see to be something I actually made, not decoration.
 
-## Page structure
+## The parts I'm proud of
 
-`Hero` → `Approach` → `Work` → `Toolkit` → `About`
+**The hero is my own data.** It plots a summer I spent recording arrivals at the
+community pool I work at — 29 days, 250 hours, transcribed by hand. Every faint
+line is one day; the two bold curves are the weekday and weekend means. They say
+something true: weekends peak late morning (about 13 arrivals an hour at 11am),
+weekdays peak after work (about 8 at 5pm). Trace across it with a cursor or the
+arrow keys and it reads out any hour. It's SVG, so it's sharp at any size and
+degrades to a clean static figure with no JavaScript.
 
-Everything to do with the Pondview forecaster — the live model, the dataset, the season
-grid — is nested inside that one entry in `Work`, so a reader reaches "here is my
-work" on the second screen rather than the fourth.
+**You can run my model in the browser.** The real forecaster is a
+gradient-boosting regressor I deployed on AWS Lambda; shipping that to a webpage
+isn't practical, so the "what-if" panel runs a small ridge regression fit on the
+same 250 hours. It scores an in-sample MAE of 3.00 arrivals/hour against the
+deployed model's 2.97 under leave-one-day-out cross-validation — close, but not
+the same thing, and the page says so rather than overclaiming.
 
-The three content sections divide cleanly, and should stay that way:
+**It's built to be honest about motion and access.** Everything respects
+`prefers-reduced-motion`: reduced motion gets native scrolling, instant anchor
+jumps, and every section already in place — not a slower version of the same
+animation. The chart is keyboard-operable and announces its values.
 
-- **Approach** — how I work. Prose, three habits, each naming checkable evidence.
-- **Work** — the proof.
-- **Toolkit** — a bare inventory, no evidence.
+## Design choices
 
-Putting evidence in the toolkit made the page say the same thing three times.
+**Colour.** A warm off-white ground (`#FAF6F0`), brown-black ink (`#1F1B17`,
+never pure black), and a single rust accent (`#A54A24`). One accent, used only
+where it means something. I checked every text pairing against WCAG AA on both
+paper tones before settling on that rust — a lighter one failed on the darker
+ground.
 
-## Where things live
+**Type.** Fraunces for display, Alegreya Sans for body, IBM Plex Mono for labels
+and data. I picked Alegreya Sans over the usual geometric sans because it's
+humanist and warm, and Plex Mono because it shares that skeleton — so the three
+read as one voice. Fraunces' swash is unlocked in exactly one place, my name in
+the hero, so it lands as a signature instead of a habit.
 
-| Path | What it is |
-| --- | --- |
-| `lib/content.ts` | **All the copy.** Projects, pillars, toolkit, education, experience, contact. Edit here, never in components. |
-| `lib/model.ts` | Coefficients and `predict()` for the in-browser model. |
-| `lib/season.ts` | The real 250-hour training season: 29 days, Jul–Aug 2026. |
-| `lib/thermal.ts` | Arrivals → ink density. One hue, light to dark. |
-| `components/HeroPlot.tsx` | The hero figure. Real data, traceable, SVG. |
-| `components/WhatIf.tsx` | The interactive model, inside the forecaster entry. |
-| `components/SeasonGrid.tsx` | The 29 × 10 grid of observed hours, behind the disclosure. |
-| `components/Stagger.tsx` | ScrollTrigger wrapper that resolves a section's parts in order. |
-| `components/SmoothScroll.tsx` | Lenis, the reveal arming, and smooth anchor navigation. |
-| `components/SectionHeading.tsx` | One heading treatment shared by every section. |
-| `public/Isaac-Willson-Resume.pdf` | Served by both download links. Replace the file to update it. |
-| `public/portrait.jpg` | The About photo (399×397), referenced by `PORTRAIT_SRC`. |
+**Motion.** Lenis for smooth scrolling and GSAP for the staged section reveals,
+both dynamically imported so neither weighs down the first load, sharing one
+animation loop rather than two.
 
-## Design system
+## Running it locally
 
-Defined once in `app/globals.css` under `@theme static`.
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build
+```
 
-### Colour
+## How it's organised
 
-| Token | Hex | Role |
-| --- | --- | --- |
-| `paper` | `#FAF6F0` | Ground. Warm off-white, faintly rose rather than yellow. |
-| `paper-deep` | `#F2ECE4` | Inset blocks. One step down, same temperature. |
-| `ink` | `#1F1B17` | Primary text. Brown-black, never `#000`. |
-| `ink-muted` | `#6B6055` | Body and metadata. |
-| `rule` | `#DDD5C9` | Hairlines only. Never carries text. |
-| `rust` | `#A54A24` | The one accent. |
-
-### Type
-
-**Fraunces** display · **Alegreya Sans** body · **IBM Plex Mono** labels and data.
-
-Fraunces runs at `SOFT 40, WONK 0` everywhere — the warmth without the novelty.
-`WONK 1` is unlocked in exactly one place, the name in the hero, where the swashed
-leg reads as a signature. Using it twice would make it a tic.
-
-Alegreya Sans is humanist with calligraphic roots and open apertures, chosen
-against the geometric neutrality of Inter and friends. Plex Mono is drawn on a
-humanist skeleton too, so it sits beside Alegreya Sans instead of sounding like a
-third voice.
-
-### Motion
-
-Lenis at `lerp 0.09`, GSAP + ScrollTrigger for staged reveals. Both are
-dynamically imported so neither lands in the initial bundle, and ScrollTrigger
-runs off Lenis' tick rather than a second RAF loop.
-
-Everything is gated on `prefers-reduced-motion`. Reduced motion gets native
-scrolling, instant anchor jumps, and every section already at rest — not slower
-versions of the same animation.
-
-## The hero figure
-
-`components/HeroPlot.tsx` plots the real training set: 29 day-lines as context,
-split by weekday and weekend tone, with the two hourly mean curves on top and
-direct labels at their peaks. **Weekends peak at 11am (13.3 arrivals/hr),
-weekdays at 5pm (8.2)** — a late-morning crowd against an after-work one.
-
-An earlier version drew all 29 days as a single tangle. It read as a chart and
-communicated nothing, which is decoration wearing a chart's clothes. If you
-change this, keep a finding in it.
-
-Trace across it and a rule follows the nearest hour, with both means resolving in
-the margin. Arrow keys do the same, Escape clears, and the readout is an
-`aria-live` region. The trace has no transition on purpose: it is direct
-manipulation, and easing it would only lag the cursor.
-
-It is **SVG, not canvas**. The static plot is the finished artwork, so there is no
-fallback to build — no JS gives you the whole figure, reduced motion gives you the
-whole figure, and GSAP only draws it on. Nothing loops, so there is no frame
-budget and no battery cost.
-
-## The in-browser model
-
-The deployed forecaster is a gradient-boosting regressor on AWS Lambda. Shipping
-that to the browser is not practical, so `lib/model.ts` holds a ridge regression
-fit on the same 250 observed hours: separate hour profiles for weekdays and
-weekends, plus temperature, a squared temperature term, and a rain indicator.
-
-It scores **MAE 3.00** arrivals/hour in-sample against the deployed model's
-**2.97** under leave-one-day-out cross-validation. Close, but not the same thing,
-which is why the page says so in the margin instead of implying the real model
-runs here.
-
-If the model is retrained, refit these coefficients rather than hand-editing
-them, and update `mae` and `deployedMae` to match.
+Copy lives in `lib/content.ts`, the dataset and model in `lib/season.ts` and
+`lib/model.ts`, and the design tokens in `app/globals.css`. Each section of the
+page is its own component in `components/`. The share card is generated from the
+same palette and data in `app/opengraph-image.tsx`.
